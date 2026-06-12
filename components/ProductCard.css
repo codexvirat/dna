@@ -1,0 +1,78 @@
+.product-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+}
+
+.product-image-container {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+  padding: 2rem;
+}
+
+.product-image {
+  object-fit: contain;
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 15px 20px rgba(0,0,0,0.5));
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+.product-info {
+  padding: 2rem;
+  border-top: 1px solid var(--glass-border);
+  background: rgba(0,0,0,0.3);
+}
+
+.product-name {
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+}
+
+.product-flavor {
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.product-specs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.spec-badge {
+  background: var(--glass-bg);
+  border: 1px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px var(--accent-cyan-glow);
+}
+
+.product-benefits {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}

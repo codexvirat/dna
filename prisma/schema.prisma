@@ -1,0 +1,86 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String                @id @default(cuid())
+  name          String?
+  email         String?               @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          Role                  @default(USER)
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+  subscriptions ProductSubscription[]
+}
+
+model NewsletterSubscriber {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  subscribedAt DateTime @default(now())
+  isActive     Boolean  @default(true)
+}
+
+// ─── Subscription Program ────────────────────────────────────────────
+
+model SubscriptionPlan {
+  id            String                @id @default(cuid())
+  name          String                // e.g. "Starter", "Athlete", "Elite"
+  slug          String                @unique // e.g. "starter"
+  description   String
+  frequency     FrequencyType         // WEEKLY | BIWEEKLY | MONTHLY
+  barsPerBox    Int                   // number of bars in one delivery
+  priceInPaise  Int                   // price in paise (₹999 = 99900)
+  discountPct   Int                   // e.g. 10 for 10%
+  isPopular     Boolean               @default(false)
+  isActive      Boolean               @default(true)
+  createdAt     DateTime              @default(now())
+  subscriptions ProductSubscription[]
+}
+
+model ProductSubscription {
+  id               String             @id @default(cuid())
+  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId           String
+  plan             SubscriptionPlan   @relation(fields: [planId], references: [id])
+  planId           String
+  flavor           FlavorType
+  quantity         Int                @default(1) // number of boxes per delivery
+  status           SubscriptionStatus @default(ACTIVE)
+  nextDeliveryDate DateTime
+  startedAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  address          String?            // delivery address (free text for now)
+  notes            String?
+}
+
+// ─── Enums ───────────────────────────────────────────────────────────
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum FrequencyType {
+  WEEKLY
+  BIWEEKLY
+  MONTHLY
+}
+
+enum FlavorType {
+  BLUEBERRY_MUFFIN
+  CHOCO_ALMOND
+  MIXED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAUSED
+  CANCELLED
+}
+
