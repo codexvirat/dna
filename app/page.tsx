@@ -160,11 +160,37 @@ export default function Home() {
   }, { scope: preloaderRef });
 
   useEffect(() => {
-    // Attempt force-play on mount as well
     const videos = document.querySelectorAll('.hero__video');
+    
+    // Ensure properties are strictly set for iOS
     videos.forEach((vid) => {
-      (vid as HTMLVideoElement).play().catch(() => {});
+      const videoElement = vid as HTMLVideoElement;
+      videoElement.muted = true;
+      videoElement.defaultMuted = true;
+      videoElement.playsInline = true;
+      videoElement.play().catch(() => {});
     });
+
+    // Unlock videos on first user interaction (fixes iOS Low Power Mode / strict autoplay issues)
+    const unlockVideos = () => {
+      videos.forEach((vid) => {
+        const videoElement = vid as HTMLVideoElement;
+        videoElement.play().catch(() => {});
+      });
+      document.removeEventListener('touchstart', unlockVideos);
+      document.removeEventListener('click', unlockVideos);
+      document.removeEventListener('scroll', unlockVideos);
+    };
+
+    document.addEventListener('touchstart', unlockVideos, { once: true });
+    document.addEventListener('click', unlockVideos, { once: true });
+    document.addEventListener('scroll', unlockVideos, { once: true });
+
+    return () => {
+      document.removeEventListener('touchstart', unlockVideos);
+      document.removeEventListener('click', unlockVideos);
+      document.removeEventListener('scroll', unlockVideos);
+    };
   }, []);
 
   useGSAP(() => {
