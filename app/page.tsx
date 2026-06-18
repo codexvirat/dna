@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { gsap } from 'gsap';
@@ -118,10 +118,37 @@ const EXPERIENCES = [
   { label: 'Wellness', title: 'Daily Balance', emoji: '🌿' },
 ];
 
+/* ── Hero videos: 16:9 for laptop/desktop, 9:16 for phone ──────── */
+const HERO_BREAKPOINT = '(max-width: 1023px)';
+
+const DESKTOP_HERO_VIDEOS = [
+  '/assets/videos/dna-logo.mp4',
+  '/assets/videos/product-video-1.mp4',
+  '/assets/videos/product-video-2.mp4',
+  '/assets/videos/video_4.mp4',
+];
+
+const MOBILE_HERO_VIDEOS = [
+  '/assets/videos/mobile/mobile-ingredients-1.mp4',
+  '/assets/videos/mobile/mobile-ingredients-2.mp4',
+  '/assets/videos/mobile/mobile-lightning.mp4',
+];
+
 export default function Home() {
   useReveal();
   const containerRef = useRef<HTMLDivElement>(null);
   const preloaderRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia(HERO_BREAKPOINT);
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  const heroVideos = isMobile ? MOBILE_HERO_VIDEOS : DESKTOP_HERO_VIDEOS;
 
   useGSAP(() => {
     // 1. PRELOADER ANIMATION
@@ -160,8 +187,9 @@ export default function Home() {
   }, { scope: preloaderRef });
 
   useEffect(() => {
+    if (isMobile === null) return;
     const videos = document.querySelectorAll('.hero__video');
-    
+
     // Ensure properties are strictly set for iOS
     videos.forEach((vid) => {
       const videoElement = vid as HTMLVideoElement;
@@ -191,13 +219,14 @@ export default function Home() {
       document.removeEventListener('click', unlockVideos);
       document.removeEventListener('scroll', unlockVideos);
     };
-  }, []);
+  }, [isMobile]);
 
   useGSAP(() => {
     // 2. HERO HORIZONTAL SCROLL ANIMATION
     const panels = gsap.utils.toArray('.hero__panel');
     const dots = gsap.utils.toArray('.hero__dot');
-    
+    if (panels.length === 0) return;
+
     gsap.to(panels, {
       xPercent: -100 * (panels.length - 1),
       ease: "none",
@@ -230,7 +259,7 @@ export default function Home() {
         }
       }
     });
-  }, { scope: containerRef });
+  }, { scope: containerRef, dependencies: [isMobile] });
 
   return (
     <div className="home-page">
@@ -245,40 +274,24 @@ export default function Home() {
       </div>
 
       {/* ══ 1. HERO — HORIZONTAL VIDEO SEQUENCE ═══════════════════════════════════ */}
+      {/* Phone view (<1024px): 9:16 videos from data/video/916. Laptop/desktop view (≥1024px): 16:9 videos. */}
       <section className="hero-container dna-section" ref={containerRef}>
-        <div className="hero__track">
-          <div className="hero__panel">
-            <video className="hero__video" autoPlay loop muted playsInline aria-hidden="true">
-              <source src="/assets/videos/dna-logo.mp4" type="video/mp4" />
-            </video>
-            <div className="hero__fade" />
-          </div>
-          <div className="hero__panel">
-            <video className="hero__video" autoPlay loop muted playsInline aria-hidden="true">
-              <source src="/assets/videos/product-video-1.mp4" type="video/mp4" />
-            </video>
-            <div className="hero__fade" />
-          </div>
-          <div className="hero__panel">
-            <video className="hero__video" autoPlay loop muted playsInline aria-hidden="true">
-              <source src="/assets/videos/product-video-2.mp4" type="video/mp4" />
-            </video>
-            <div className="hero__fade" />
-          </div>
-          <div className="hero__panel">
-            <video className="hero__video" autoPlay loop muted playsInline aria-hidden="true">
-              <source src="/assets/videos/video_4.mp4" type="video/mp4" />
-            </video>
-            <div className="hero__fade" />
-          </div>
+        <div className="hero__track" style={{ width: `${heroVideos.length * 100}vw` }}>
+          {isMobile !== null && heroVideos.map((src) => (
+            <div className="hero__panel" key={src}>
+              <video className="hero__video" autoPlay loop muted playsInline aria-hidden="true">
+                <source src={src} type="video/mp4" />
+              </video>
+              <div className="hero__fade" />
+            </div>
+          ))}
         </div>
 
         {/* Premium Progress Indicators */}
         <div className="hero__progress">
-          <div className="hero__dot active"></div>
-          <div className="hero__dot"></div>
-          <div className="hero__dot"></div>
-          <div className="hero__dot"></div>
+          {isMobile !== null && heroVideos.map((src, i) => (
+            <div className={`hero__dot${i === 0 ? ' active' : ''}`} key={src}></div>
+          ))}
         </div>
       </section>
 
