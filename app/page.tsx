@@ -148,9 +148,24 @@ export default function Home() {
         if (preloaderRef.current) {
           preloaderRef.current.style.display = 'none';
         }
+        // Force play videos after preloader to bypass some mobile restrictions
+        const videos = document.querySelectorAll('.hero__video');
+        videos.forEach((vid) => {
+          (vid as HTMLVideoElement).play().catch(() => {
+            // Silently fail if low power mode blocks it
+          });
+        });
       }
     });
   }, { scope: preloaderRef });
+
+  useEffect(() => {
+    // Attempt force-play on mount as well
+    const videos = document.querySelectorAll('.hero__video');
+    videos.forEach((vid) => {
+      (vid as HTMLVideoElement).play().catch(() => {});
+    });
+  }, []);
 
   useGSAP(() => {
     // 2. HERO HORIZONTAL SCROLL ANIMATION
