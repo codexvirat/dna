@@ -60,19 +60,19 @@ export default function Shop() {
         <div style={{ position: 'absolute', bottom: '10%', left: '-10%', width: '400px', height: '400px', background: 'var(--accent-cyan-glow)', filter: 'blur(150px)', zIndex: -1, opacity: 0.4 }}></div>
 
         <ProductCard 
-          id="blueberry-muffin"
-          name="Symmetrix 25"
-          flavor="Blueberry Muffin"
+          id="collagen-glow-bar"
+          name="Collagen Glow Bar"
+          flavor="Glow & Wellness"
           protein="10g"
-          benefits="Triple Threat Formula: Ashwagandha, Glutamine & Collagen for muscle recovery and joint health."
+          benefits="Protein + Collagen Builders + Glutamine. Radiant skin, recovery, and inner wellness."
           imageSrc="/assets/product1.png"
         />
         <ProductCard 
-          id="choco-almond"
-          name="Symmetrix 25"
-          flavor="Choco Almond"
+          id="dna-anabolic-bar"
+          name="DNA Anabolic Bar"
+          flavor="Strength & Recovery"
           protein="10g"
-          benefits="Triple Threat Formula: Ashwagandha, Glutamine & Creatine for explosive energy and muscle gain."
+          benefits="Protein + Creatine + Ashwagandha. Built for daily performance and recovery."
           imageSrc="/assets/product2.png"
         />
       </section>

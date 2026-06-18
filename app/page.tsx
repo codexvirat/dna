@@ -21,31 +21,31 @@ function useReveal() {
 
 /* ── Ticker content ──────────────────────────────────────────── */
 const TICKER_ITEMS = [
-  '🧬 Science-Backed Nutrition',
-  '⚡ Peak Performance',
-  '💪 Muscle Recovery',
-  '✨ Aesthetic Wellness',
+  '🧬 Research-Backed Nutrition',
+  '⚡ Everyday Energy',
+  '💪 Daily Recovery',
+  '✨ Wellness Essentials',
   '🔬 Clinically Dosed',
-  '🏆 Elite Ingredients',
+  '🏆 Premium Ingredients',
   '🌿 Clean Label',
-  '🚀 Next-Gen Protein',
+  '🚀 Modern Nutrition',
 ];
 
 /* ── Products ────────────────────────────────────────────────── */
 const PRODUCTS = [
   {
     id: 'anabolic',
-    tag: 'Strength & Muscle',
+    tag: 'Strength & Recovery',
     name: 'DNA Anabolic Bar',
-    desc: 'Creatine + Glutamine + Elite Protein. Built for performance, recovery, and muscle growth.',
+    desc: 'Protein + Creatine + Ashwagandha. Built for daily performance and recovery.',
     img: '/assets/product2.png',
     accentColor: 'rgba(0,243,255,0.12)',
   },
   {
     id: 'collagen',
-    tag: 'Glow & Recovery',
+    tag: 'Glow & Wellness',
     name: 'Collagen Glow Bar',
-    desc: 'Ashwagandha + Collagen Builders + Elite Protein. Radiant skin, joint recovery, inner wellness.',
+    desc: 'Protein + Collagen Builders + Glutamine. Radiant skin, recovery, and inner wellness.',
     img: '/assets/product1.png',
     accentColor: 'rgba(176,38,255,0.1)',
   },
@@ -53,43 +53,52 @@ const PRODUCTS = [
 
 /* ── Pillars ─────────────────────────────────────────────────── */
 const PILLARS = [
-  { num: '01', title: 'Performance', text: 'Clinically dosed creatine and protein to maximize your output every session.' },
-  { num: '02', title: 'Recovery', text: 'Glutamine and adaptogens that accelerate muscle repair and reduce soreness.' },
-  { num: '03', title: 'Wellness', text: 'Ashwagandha reduces cortisol so your body operates at its biological best.' },
-  { num: '04', title: 'Aesthetics', text: 'Collagen builders and clean macros that support the physique you\'re building.' },
+  { num: '01', title: 'Performance', text: 'Support energy, strength, and daily activity.' },
+  { num: '02', title: 'Recovery', text: 'Help the body recover and maintain overall wellness.' },
+  { num: '03', title: 'Wellness', text: 'Support stress management and daily balance.' },
+  { num: '04', title: 'Nutrition', text: 'Provide convenient, high-quality nutrition for everyday life.' },
+];
+
+/* ── Audience ────────────────────────────────────────────────── */
+const AUDIENCE = [
+  { emoji: '🎓', label: 'Students' },
+  { emoji: '💼', label: 'Working Professionals' },
+  { emoji: '💪', label: 'Fitness Enthusiasts' },
+  { emoji: '🏠', label: 'Homemakers' },
+  { emoji: '🏃', label: 'Active Adults' },
+  { emoji: '🧓', label: 'Senior Citizens' },
+  { emoji: '✨', label: 'Everyone' },
 ];
 
 /* ── Ingredients ─────────────────────────────────────────────── */
 const INGREDIENTS = [
-  { emoji: '⚡', name: 'Creatine', desc: 'Explosive strength and power output. The most studied performance compound.' },
-  { emoji: '🔄', name: 'Glutamine', desc: 'Accelerated muscle repair, gut health, and immune function.' },
-  { emoji: '🌿', name: 'Ashwagandha', desc: 'Adaptogen that lowers cortisol and supports hormonal balance.' },
-  { emoji: '💎', name: 'Elite Protein', desc: '10g premium protein per bar with a complete amino acid profile.' },
-  { emoji: '✨', name: 'Collagen Builders', desc: 'Skin elasticity, joint recovery, and connective tissue strength.' },
+  { emoji: '⚡', name: 'Creatine', desc: 'Supports strength, energy, and physical performance.' },
+  { emoji: '🔄', name: 'Glutamine', desc: 'Supports recovery, digestion, and immune health.' },
+  { emoji: '🌿', name: 'Ashwagandha', desc: 'Supports stress management and overall wellbeing.' },
+  { emoji: '💎', name: 'Elite Protein', desc: 'Provides 10g premium protein with a complete amino acid profile.' },
+  { emoji: '✨', name: 'Collagen Builders', desc: 'Supports skin, joints, and connective tissue health.' },
 ];
-
-// Removed static PLANS array since we are using SubscriptionPicker
 
 /* ── Testimonials ────────────────────────────────────────────── */
 const TESTIMONIALS = [
   {
-    quote: 'The Anabolic Bar is the only protein bar I\'ve tried where the ingredients actually match the science. My recovery has never been this fast.',
+    quote: 'The Anabolic Bar is the only protein bar I\'ve tried where the ingredients actually match the science. My energy levels have never been better.',
     name: 'Arjun S.',
-    role: 'Competitive Powerlifter',
+    role: 'Fitness Enthusiast',
     avatar: '🏋️',
     stars: 5,
   },
   {
     quote: 'As a nutritionist, I\'m picky about labels. DNA Bars is the real deal — clean, clinically dosed, and the taste is genuinely incredible.',
     name: 'Dr. Priya M.',
-    role: 'Sports Nutritionist',
+    role: 'Nutritionist',
     avatar: '🧬',
     stars: 5,
   },
   {
-    quote: 'The Collagen Glow Bar changed my skin and my joints. Six weeks in and my coach noticed the difference before I even mentioned it.',
+    quote: 'The Collagen Glow Bar changed my skin and my joints. Six weeks in and my friends noticed the difference before I even mentioned it.',
     name: 'Meera T.',
-    role: 'Crossfit Athlete',
+    role: 'Wellness Advocate',
     avatar: '⚡',
     stars: 5,
   },
@@ -97,9 +106,9 @@ const TESTIMONIALS = [
 
 /* ── Experience tiles ────────────────────────────────────────── */
 const EXPERIENCES = [
-  { label: 'Training', title: 'Peak Performance', emoji: '🏋️' },
-  { label: 'Recovery', title: 'Deep Repair', emoji: '🔄' },
-  { label: 'Wellness', title: 'Daily Ritual', emoji: '🌿' },
+  { label: 'Daily Energy', title: 'Active Living', emoji: '☀️' },
+  { label: 'Recovery', title: 'Rest & Recover', emoji: '🔄' },
+  { label: 'Wellness', title: 'Daily Balance', emoji: '🌿' },
 ];
 
 export default function Home() {
@@ -109,7 +118,7 @@ export default function Home() {
   return (
     <div className="home-page">
 
-      {/* ══ 1. HERO ══════════════════════════════════════════════ */}
+      {/* ══ 1. HERO — VIDEO ONLY ═══════════════════════════════════ */}
       <section className="hero dna-section">
         <video
           ref={videoRef}
@@ -119,27 +128,25 @@ export default function Home() {
         >
           <source src="/assets/hero-video.mp4" type="video/mp4" />
         </video>
-        <div className="hero__overlay" />
+        <div className="hero__fade" />
+      </section>
 
-        <div className="hero__content">
-          <span className="hero__eyebrow">DNA Bars — Daily Nutrition Aesthetics</span>
-          <h1 className="hero__title">
-            YOUR AESTHETIC<br />
-            <span className="text-gradient">BLUEPRINT</span><br />
-            IN A WRAPPER
+      {/* ══ HERO CONTENT — Below video ═════════════════════════════ */}
+      <section className="hero-intro dna-section">
+        <div className="hero-intro__inner">
+          <span className="hero-intro__eyebrow">DNA Bars — Everyday Nutrition</span>
+          <h1 className="hero-intro__title">
+            TO SERVE A<br />
+            <span className="text-gradient">BILLION LIVES</span>
           </h1>
-          <p className="hero__subtitle">
-            Science-backed. Flavor-first. Built for athletes who refuse to compromise.
+          <p className="hero-intro__subtitle">
+            Research-backed ingredients. Convenient daily nutrition.<br />
+            Built for everyone who values wellness.
           </p>
-          <div className="hero__actions">
+          <div className="hero-intro__actions">
             <Link href="/shop" className="btn-primary">Shop Now</Link>
             <Link href="/subscription" className="btn-secondary">Subscribe &amp; Save</Link>
           </div>
-        </div>
-
-        <div className="hero__scroll-hint" aria-hidden="true">
-          <span>Scroll</span>
-          <div className="hero__scroll-line" />
         </div>
       </section>
 
@@ -162,7 +169,7 @@ export default function Home() {
         <div className="products__header reveal">
           <span className="section-eyebrow">Our Products</span>
           <h2 className="section-title">Two bars.<br />Infinite potential.</h2>
-          <p className="section-sub">Each formula engineered for a specific goal. No fillers. No compromise.</p>
+          <p className="section-sub">Each formula crafted for a specific goal. No fillers. No compromise.</p>
         </div>
 
         <div className="products__grid">
@@ -171,7 +178,6 @@ export default function Home() {
               key={p.id}
               className="product-feature reveal"
               style={{
-                background: `radial-gradient(ellipse at ${i === 0 ? '70% 30%' : '30% 30%'}, ${p.accentColor} 0%, #0d0d14 60%)`,
                 transitionDelay: `${i * 0.15}s`,
               }}
             >
@@ -181,7 +187,6 @@ export default function Home() {
                 fill
                 sizes="(max-width:900px) 100vw, 50vw"
                 className="product-feature__img"
-                style={{ objectFit: 'contain', objectPosition: 'center 28%', padding: '3rem', position: 'absolute' }}
               />
               <div className="product-feature__body">
                 <span className="product-feature__tag">{p.tag}</span>
@@ -201,94 +206,94 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ 3. WHY DNA ════════════════════════════════════════════ */}
-      <section className="why dna-section">
-        <div className="why__inner">
-          <h2 className="why__lead reveal">
-            Engineered for the<br />
-            <span className="text-gradient">athlete in you.</span>
+      {/* ══ 3. BUILT FOR EVERYDAY NUTRITION — Unified Section ═════ */}
+      <section className="nourish dna-section">
+        <div className="nourish__container">
+
+          {/* ── Eyebrow + headline ─────────────────────────────── */}
+          <span className="section-eyebrow reveal">Why DNA Bars</span>
+          <h2 className="nourish__headline reveal reveal-d1">
+            Built for <span className="text-gradient">Everyday Nutrition.</span>
           </h2>
-          <div className="why__pillars">
-            {PILLARS.map((p, i) => (
-              <div key={p.num} className={`why__pillar reveal reveal-d${i + 1}`}>
-                <span className="why__pillar-num">{p.num}</span>
-                <div className="why__pillar-title">{p.title}</div>
-                <p className="why__pillar-text">{p.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+          <p className="nourish__lead reveal reveal-d2">
+            Research-backed ingredients. Convenient daily nutrition.
+            Designed for everyone who values wellness — not just athletes.
+          </p>
 
-      {/* ══ 4. SCIENCE ════════════════════════════════════════════ */}
-      <section className="science dna-section">
-        <div className="science__inner">
-          <div className="science__text">
-            <span className="section-eyebrow reveal">The Science</span>
-            <h2 className="science__headline reveal reveal-d1">
-              Every ingredient<br />earns its place.
-            </h2>
-            <p className="science__body reveal reveal-d2">
-              We don\'t follow trends. We follow the research. Every compound in DNA Bars is
-              chosen based on peer-reviewed evidence, clinically effective doses, and
-              compatibility with your body's biology.
-            </p>
-            <div className="science__stats reveal reveal-d3">
-              <div>
-                <div className="science__stat-val">10g</div>
-                <div className="science__stat-label">Protein Per Bar</div>
+          {/* ── Stats bar ──────────────────────────────────────── */}
+          <div className="nourish__stats reveal reveal-d3">
+            <div className="nourish__stat">
+              <div className="nourish__stat-val">10g</div>
+              <div className="nourish__stat-label">Protein Per Bar</div>
+            </div>
+            <div className="nourish__stat-divider" />
+            <div className="nourish__stat">
+              <div className="nourish__stat-val">3‑in‑1</div>
+              <div className="nourish__stat-label">Functional Formula</div>
+            </div>
+            <div className="nourish__stat-divider" />
+            <div className="nourish__stat">
+              <div className="nourish__stat-val">Zero</div>
+              <div className="nourish__stat-label">Artificial Fillers</div>
+            </div>
+          </div>
+
+          {/* ── Two-column: Pillars + Ingredients ──────────────── */}
+          <div className="nourish__grid">
+
+            {/* Left — Benefits */}
+            <div className="nourish__benefits">
+              <h3 className="nourish__col-title reveal">What We Deliver</h3>
+              <div className="nourish__pillar-list">
+                {PILLARS.map((p, i) => (
+                  <div key={p.num} className={`nourish__pillar reveal reveal-d${i + 1}`}>
+                    <span className="nourish__pillar-num">{p.num}</span>
+                    <div>
+                      <div className="nourish__pillar-name">{p.title}</div>
+                      <p className="nourish__pillar-desc">{p.text}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div>
-                <div className="science__stat-val">3-in-1</div>
-                <div className="science__stat-label">Triple Threat Formula</div>
-              </div>
-              <div>
-                <div className="science__stat-val">Zero</div>
-                <div className="science__stat-label">Artificial Fillers</div>
+            </div>
+
+            {/* Right — Ingredients */}
+            <div className="nourish__ingredients">
+              <h3 className="nourish__col-title reveal">What&apos;s Inside</h3>
+              <div className="nourish__ingr-list">
+                {INGREDIENTS.map((ingr, i) => (
+                  <div key={ingr.name} className={`nourish__ingr reveal reveal-d${i + 1}`}>
+                    <span className="nourish__ingr-icon">{ingr.emoji}</span>
+                    <div>
+                      <div className="nourish__ingr-name">{ingr.name}</div>
+                      <p className="nourish__ingr-desc">{ingr.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          <div className="science__visual reveal reveal-d2">
-            <div className="science__product-wrap">
-              <div className="science__glow" />
-              <Image
-                src="/assets/product1.png"
-                alt="DNA Bars science"
-                width={480}
-                height={480}
-                className="science__product-img"
-              />
+          {/* ── Audience strip ─────────────────────────────────── */}
+          <div className="nourish__audience reveal">
+            <span className="nourish__audience-label">Made for</span>
+            <div className="nourish__audience-tags">
+              {AUDIENCE.map((a) => (
+                <span key={a.label} className="nourish__tag">{a.emoji} {a.label}</span>
+              ))}
             </div>
           </div>
+
         </div>
       </section>
 
-      {/* ══ 5. INGREDIENTS ════════════════════════════════════════ */}
-      <section className="ingredients dna-section">
-        <div className="ingredients__header">
-          <span className="section-eyebrow reveal">Ingredients</span>
-          <h2 className="section-title reveal reveal-d1">Built from the best.</h2>
-          <p className="section-sub reveal reveal-d2">Five power compounds. One perfect bar.</p>
-        </div>
-        <div className="ingredients__grid">
-          {INGREDIENTS.map((ingr, i) => (
-            <div key={ingr.name} className={`ingr-card reveal reveal-d${Math.min(i + 1, 5)}`}>
-              <span className="ingr-card__emoji">{ingr.emoji}</span>
-              <div className="ingr-card__name">{ingr.name}</div>
-              <p className="ingr-card__desc">{ingr.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ══ 6. SUBSCRIPTION PLANS ════════════════════════════════ */}
+      {/* ══ 4. SUBSCRIPTION PLANS ════════════════════════════════ */}
       <section className="sub-plans-section dna-section">
         <div className="sub-plans-section__header">
           <span className="section-eyebrow reveal">Subscribe &amp; Save</span>
-          <h2 className="section-title reveal reveal-d1">Never run out<br />of fuel.</h2>
+          <h2 className="section-title reveal reveal-d1">Never run out<br />of nutrition.</h2>
           <p className="section-sub reveal reveal-d2">
-            Save up to 25% with a subscription. Pause or cancel anytime — no lock-in.
+            Save up to 15% with a subscription. Pause or cancel anytime — no lock-in.
           </p>
         </div>
         <div className="sub-plans-section__cards" style={{ display: 'flex', justifyContent: 'center' }}>
@@ -296,17 +301,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ 7. SOCIAL PROOF ══════════════════════════════════════ */}
+      {/* ══ 5. SOCIAL PROOF ══════════════════════════════════════ */}
       <section className="proof dna-section">
         <div className="proof__inner">
           <h2 className="proof__tagline reveal">
-            Trusted by athletes<br />
+            Trusted by people<br />
             who demand<br />
             <span className="text-gradient">more.</span>
           </h2>
           <div className="proof__stats">
             {[
-              { val: '2,400+', label: 'Athletes subscribed' },
+              { val: '2,400+', label: 'Customers subscribed' },
               { val: '98%', label: 'Would recommend' },
               { val: '4.9★', label: 'Average rating' },
               { val: '0', label: 'Artificial fillers' },
@@ -320,17 +325,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ 8. TESTIMONIALS ══════════════════════════════════════ */}
+      {/* ══ 6. TESTIMONIALS ══════════════════════════════════════ */}
       <section className="testi dna-section">
         <div className="testi__header">
           <span className="section-eyebrow reveal">Reviews</span>
-          <h2 className="section-title reveal reveal-d1">Real athletes.<br />Real results.</h2>
+          <h2 className="section-title reveal reveal-d1">Real people.<br />Real results.</h2>
         </div>
         <div className="testi__grid">
           {TESTIMONIALS.map((t, i) => (
             <div key={t.name} className={`testi-card reveal reveal-d${i + 1}`}>
               <div className="testi-card__stars">{'★'.repeat(t.stars)}</div>
-              <p className="testi-card__quote">"{t.quote}"</p>
+              <p className="testi-card__quote">&quot;{t.quote}&quot;</p>
               <div className="testi-card__author">
                 <div className="testi-card__avatar">{t.avatar}</div>
                 <div>
@@ -343,7 +348,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ 9. DNA EXPERIENCE ════════════════════════════════════ */}
+      {/* ══ 7. DNA EXPERIENCE ════════════════════════════════════ */}
       <section className="experience dna-section">
         <div className="experience__header">
           <span className="section-eyebrow reveal">The DNA Experience</span>
@@ -362,7 +367,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ 10. FINAL CTA ════════════════════════════════════════ */}
+      {/* ══ 8. FINAL CTA ════════════════════════════════════════ */}
       <section className="final-cta dna-section">
         <span className="final-cta__eyebrow reveal">Start Today</span>
         <h2 className="final-cta__headline reveal reveal-d1">
@@ -370,14 +375,14 @@ export default function Home() {
           <span className="text-gradient">the best.</span>
         </h2>
         <p className="final-cta__sub reveal reveal-d2">
-          Join 2,400+ athletes fuelling their aesthetic with DNA Bars. First order ships in 24 hours.
+          Join 2,400+ people nourishing their everyday wellness with DNA Bars. First order ships in 24 hours.
         </p>
         <div className="final-cta__actions reveal reveal-d3">
           <Link href="/shop" className="btn-primary" style={{ fontSize: '1rem', padding: '1rem 2.5rem' }}>
             Shop DNA Bars
           </Link>
           <Link href="/subscription" className="btn-secondary" style={{ fontSize: '1rem', padding: '1rem 2.5rem' }}>
-            Subscribe &amp; Save 25%
+            Subscribe &amp; Save 15%
           </Link>
         </div>
       </section>

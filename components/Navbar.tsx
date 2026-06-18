@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import './Navbar.css';
 
@@ -34,14 +33,8 @@ export default function Navbar() {
     <header className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar-container">
         <div className="logo-container">
-          <Link href="/">
-            <Image
-              src="/assets/logo.png"
-              alt="DNA Bars Logo"
-              width={120}
-              height={40}
-              className="logo-img"
-            />
+          <Link href="/" className="logo-wordmark">
+            DNA<span className="logo-tm">™</span>
           </Link>
         </div>
         <nav className="nav-links">

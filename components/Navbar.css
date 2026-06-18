@@ -26,9 +26,35 @@
   margin: 0 auto;
 }
 
-.logo-img {
-  object-fit: contain;
-  filter: drop-shadow(0 0 8px var(--accent-cyan-glow));
+/* ── Text Wordmark ────────────────────────── */
+.logo-wordmark {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.35s ease;
+  position: relative;
+}
+
+.logo-wordmark:hover {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo-tm {
+  font-size: 0.65em;
+  font-weight: 400;
+  vertical-align: super;
+  opacity: 0.45;
+  letter-spacing: 0;
+  margin-left: 0.05em;
+}
+
+.logo-wordmark:hover .logo-tm {
+  opacity: 0.7;
 }
 
 .nav-links {

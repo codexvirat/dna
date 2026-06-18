@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid-3" style={{ marginBottom: '3rem' }}>
           <div>
             <h3 className="text-gradient" style={{ marginBottom: '1rem' }}>DNA BARS</h3>
-            <p>Daily Nutrition Aesthetics. Fuel your body with the ultimate triple threat formula for peak performance and recovery.</p>
+            <p>Daily Nutrition Aesthetics. Convenient, research-backed nutrition for daily wellness and a healthier lifestyle.</p>
           </div>
           <div>
             <h4 style={{ marginBottom: '1rem', color: '#fff' }}>Quick Links</h4>
@@ -22,7 +22,7 @@ export default function Footer() {
           </div>
           <div>
             <h4 style={{ marginBottom: '1rem', color: '#fff' }}>Stay Updated</h4>
-            <p>Join the aesthetic movement. Get exclusive drops and training tips.</p>
+            <p>Join the wellness movement. Get exclusive drops and nutrition tips.</p>
             <SubscribeForm variant="footer" />
           </div>
         </div>
@@ -37,4 +37,3 @@ export default function Footer() {
     </footer>
   );
 }
-

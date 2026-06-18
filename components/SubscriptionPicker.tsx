@@ -9,61 +9,40 @@ export const STATIC_PLANS = [
   {
     id: 'starter',
     slug: 'starter',
-    name: 'Starter',
-    description: 'Perfect intro to the DNA lifestyle. One box every month.',
+    name: 'One-Time Purchase',
+    description: 'Try DNA Bars with zero commitment. Order once, enjoy anytime.',
     frequency: 'MONTHLY' as const,
-    frequencyLabel: 'per month',
+    frequencyLabel: 'one-time',
     barsPerBox: 12,
     price: 999,
-    discountPct: 10,
+    discountPct: 0,
     isPopular: false,
     features: [
       '12 bars per box',
-      'Monthly delivery',
-      '10% off retail price',
+      'No subscription required',
       'Free shipping on orders ₹999+',
-      'Cancel anytime',
+      'Choose your flavor',
+      'Try before you subscribe',
     ],
   },
   {
     id: 'athlete',
     slug: 'athlete',
-    name: 'Athlete',
-    description: 'For the serious performer. A fresh box every two weeks.',
-    frequency: 'BIWEEKLY' as const,
-    frequencyLabel: 'per 2 weeks',
+    name: 'Monthly Subscription',
+    description: 'The smarter way to stay nourished. Fresh bars delivered every month.',
+    frequency: 'MONTHLY' as const,
+    frequencyLabel: 'per month',
     barsPerBox: 12,
     price: 1799,
     discountPct: 15,
     isPopular: true,
     features: [
-      '12 bars per box',
-      'Bi-weekly delivery',
-      '15% off retail price',
+      'Better Value Pricing',
+      'Automatic Deliveries',
+      'Easy Management',
+      'Pause Anytime',
+      'Cancel Anytime',
       'Free shipping always',
-      'Pause or cancel anytime',
-      'Priority customer support',
-    ],
-  },
-  {
-    id: 'elite',
-    slug: 'elite',
-    name: 'Elite',
-    description: 'Maximum fuel. Weekly delivery for peak performance.',
-    frequency: 'WEEKLY' as const,
-    frequencyLabel: 'per week',
-    barsPerBox: 12,
-    price: 3199,
-    discountPct: 20,
-    isPopular: false,
-    features: [
-      '12 bars per box',
-      'Weekly delivery',
-      '20% off retail price',
-      'Free express shipping',
-      'Pause or cancel anytime',
-      'Dedicated account manager',
-      'Early access to new flavors',
     ],
   },
 ];
@@ -80,7 +59,6 @@ export default function SubscriptionPicker() {
   const [selectedFlavors, setSelectedFlavors] = useState<Record<string, Flavor>>({
     starter: 'MIXED',
     athlete: 'MIXED',
-    elite:   'MIXED',
   });
   const [loading, setLoading] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<{ slug: string; msg: string; ok: boolean } | null>(null);
@@ -135,7 +113,7 @@ export default function SubscriptionPicker() {
           style={{ animationDelay: `${i * 0.1}s` }}
         >
           {plan.isPopular && (
-            <div className="plan-card__popular-badge">⭐ Most Popular</div>
+            <div className="plan-card__popular-badge">⭐ Best Value</div>
           )}
 
           <div className="plan-card__name">{plan.name}</div>
@@ -145,7 +123,9 @@ export default function SubscriptionPicker() {
             <span className="plan-card__price">₹{plan.price.toLocaleString('en-IN')}</span>
             <span className="plan-card__price-period">/ {plan.frequencyLabel}</span>
           </div>
-          <span className="plan-card__savings">Save {plan.discountPct}%</span>
+          {plan.discountPct > 0 && (
+            <span className="plan-card__savings">Save {plan.discountPct}%</span>
+          )}
 
           <ul className="plan-card__features">
             {plan.features.map((f) => (
@@ -193,7 +173,7 @@ export default function SubscriptionPicker() {
           >
             {loading === plan.slug
               ? 'Processing…'
-              : `Start ${plan.name} Plan →`}
+              : plan.isPopular ? 'Start Monthly Plan →' : 'Buy Now →'}
           </button>
         </div>
       ))}
