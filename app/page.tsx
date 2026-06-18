@@ -3,8 +3,15 @@
 import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 import SubscriptionPicker from '../components/SubscriptionPicker';
 import './home.css';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 /* ── Scroll-reveal hook ─────────────────────────────────────── */
 function useReveal() {
@@ -113,22 +120,125 @@ const EXPERIENCES = [
 
 export default function Home() {
   useReveal();
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const preloaderRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    // 1. PRELOADER ANIMATION
+    const tl = gsap.timeline();
+    
+    tl.to('.preloader__char', {
+      opacity: 1,
+      y: 0,
+      duration: 0.5,
+      stagger: 0.3,
+      ease: "power2.out",
+    })
+    .to('.preloader__text', {
+      opacity: 0,
+      duration: 0.5,
+      delay: 0.4,
+      ease: "power2.inOut"
+    })
+    .to(preloaderRef.current, {
+      yPercent: -100,
+      duration: 0.8,
+      ease: "power3.inOut",
+      onComplete: () => {
+        if (preloaderRef.current) {
+          preloaderRef.current.style.display = 'none';
+        }
+      }
+    });
+  }, { scope: preloaderRef });
+
+  useGSAP(() => {
+    // 2. HERO HORIZONTAL SCROLL ANIMATION
+    const panels = gsap.utils.toArray('.hero__panel');
+    const dots = gsap.utils.toArray('.hero__dot');
+    
+    gsap.to(panels, {
+      xPercent: -100 * (panels.length - 1),
+      ease: "none",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        pin: true,
+        scrub: 1,
+        snap: {
+          snapTo: 1 / (panels.length - 1),
+          duration: { min: 0.3, max: 0.6 },
+          delay: 0, 
+          ease: "power2.inOut"
+        },
+        end: "+=2000", // Adjusted scroll distance
+        onUpdate: (self) => {
+          const progress = self.progress;
+          // Calculate active index based on progress (0 to 1)
+          const activeIndex = Math.min(
+            panels.length - 1,
+            Math.floor(progress * panels.length)
+          );
+          
+          dots.forEach((dot, index) => {
+            if (index === activeIndex) {
+              (dot as HTMLElement).classList.add('active');
+            } else {
+              (dot as HTMLElement).classList.remove('active');
+            }
+          });
+        }
+      }
+    });
+  }, { scope: containerRef });
 
   return (
     <div className="home-page">
 
-      {/* ══ 1. HERO — VIDEO ONLY ═══════════════════════════════════ */}
-      <section className="hero dna-section">
-        <video
-          ref={videoRef}
-          className="hero__video"
-          autoPlay loop muted playsInline
-          aria-hidden="true"
-        >
-          <source src="/assets/hero-video.mp4" type="video/mp4" />
-        </video>
-        <div className="hero__fade" />
+      {/* ══ PRELOADER ══════════════════════════════════════════════════════ */}
+      <div className="preloader" ref={preloaderRef}>
+        <div className="preloader__text">
+          <span className="preloader__char">D</span>
+          <span className="preloader__char">N</span>
+          <span className="preloader__char">A</span>
+        </div>
+      </div>
+
+      {/* ══ 1. HERO — HORIZONTAL VIDEO SEQUENCE ═══════════════════════════════════ */}
+      <section className="hero-container dna-section" ref={containerRef}>
+        <div className="hero__track">
+          <div className="hero__panel">
+            <video className="hero__video" autoPlay loop muted playsInline aria-hidden="true">
+              <source src="/assets/videos/dna-logo.mp4" type="video/mp4" />
+            </video>
+            <div className="hero__fade" />
+          </div>
+          <div className="hero__panel">
+            <video className="hero__video" autoPlay loop muted playsInline aria-hidden="true">
+              <source src="/assets/videos/product-video-1.mp4" type="video/mp4" />
+            </video>
+            <div className="hero__fade" />
+          </div>
+          <div className="hero__panel">
+            <video className="hero__video" autoPlay loop muted playsInline aria-hidden="true">
+              <source src="/assets/videos/product-video-2.mp4" type="video/mp4" />
+            </video>
+            <div className="hero__fade" />
+          </div>
+          <div className="hero__panel">
+            <video className="hero__video" autoPlay loop muted playsInline aria-hidden="true">
+              <source src="/assets/videos/video_4.mp4" type="video/mp4" />
+            </video>
+            <div className="hero__fade" />
+          </div>
+        </div>
+
+        {/* Premium Progress Indicators */}
+        <div className="hero__progress">
+          <div className="hero__dot active"></div>
+          <div className="hero__dot"></div>
+          <div className="hero__dot"></div>
+          <div className="hero__dot"></div>
+        </div>
       </section>
 
       {/* ══ HERO CONTENT — Below video ═════════════════════════════ */}
