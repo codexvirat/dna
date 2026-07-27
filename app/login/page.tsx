@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { signIn } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
@@ -23,9 +23,10 @@ export default function LoginPage() {
       });
 
       if (res?.error) {
-        alert("Invalid credentials. (Note: Dummy auth accepts anything, just ensure fields are filled!)");
+        alert("Invalid email or password.");
       } else {
-        router.push('/dashboard/subscriptions');
+        const session = await getSession();
+        router.push(session?.user?.role === 'ADMIN' ? '/admin' : '/dashboard/subscriptions');
         router.refresh();
       }
     } catch (error) {

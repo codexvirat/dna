@@ -7,6 +7,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import SubscriptionPicker from '../components/SubscriptionPicker';
+import BmiCalculator from '../components/BmiCalculator';
 import './home.css';
 
 if (typeof window !== 'undefined') {
@@ -463,6 +464,18 @@ export default function Home() {
         <div className="sub-plans-section__cards" style={{ display: 'flex', justifyContent: 'center' }}>
           <SubscriptionPicker />
         </div>
+      </section>
+
+      {/* ══ BMI CALCULATOR ═══════════════════════════════════════ */}
+      <section className="bmi-calculator-section dna-section">
+        <div className="bmi-calculator-section__header">
+          <span className="section-eyebrow reveal">Know Your Numbers</span>
+          <h2 className="section-title reveal reveal-d1">Check your BMI<br />in seconds.</h2>
+          <p className="section-sub reveal reveal-d2">
+            A quick way to understand where you stand — and how DNA Bars fits your goals.
+          </p>
+        </div>
+        <BmiCalculator />
       </section>
 
       {/* ══ 5. SOCIAL PROOF ══════════════════════════════════════ */}

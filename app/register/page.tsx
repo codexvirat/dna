@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { signIn } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 export default function RegisterPage() {
@@ -17,7 +17,18 @@ export default function RegisterPage() {
     setIsLoading(true);
 
     try {
-      // Since it's dummy auth, we just "log them in" immediately with the data they provided.
+      const registerRes = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email: identifier, password }),
+      });
+
+      if (!registerRes.ok) {
+        const { error } = await registerRes.json();
+        alert(error ?? 'Registration failed. Please try again.');
+        return;
+      }
+
       const res = await signIn('credentials', {
         redirect: false,
         email: identifier,
@@ -25,9 +36,10 @@ export default function RegisterPage() {
       });
 
       if (res?.error) {
-        alert("Registration failed. Please try again.");
+        alert("Registration succeeded but sign-in failed. Please try logging in.");
       } else {
-        router.push('/dashboard/subscriptions');
+        const session = await getSession();
+        router.push(session?.user?.role === 'ADMIN' ? '/admin' : '/dashboard/subscriptions');
         router.refresh();
       }
     } catch (error) {

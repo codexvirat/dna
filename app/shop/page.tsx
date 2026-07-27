@@ -1,7 +1,29 @@
 import React from 'react';
+import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
+import { prisma } from '@/lib/prisma';
 
-export default function Shop() {
+export const dynamic = 'force-dynamic';
+
+interface ShopPageProps {
+  searchParams: Promise<{ category?: string }>;
+}
+
+export default async function Shop({ searchParams }: ShopPageProps) {
+  const { category: activeCategorySlug } = await searchParams;
+
+  const [categories, products] = await Promise.all([
+    prisma.category.findMany({ orderBy: { name: 'asc' } }),
+    prisma.product.findMany({
+      where: {
+        isActive: true,
+        ...(activeCategorySlug ? { category: { slug: activeCategorySlug } } : {}),
+      },
+      include: { category: true },
+      orderBy: { createdAt: 'asc' },
+    }),
+  ]);
+
   return (
     <main className="container section-padding">
       {/* Hero Section */}
@@ -19,7 +41,7 @@ export default function Shop() {
       <section className="glass-panel" style={{ padding: '1.5rem', marginBottom: '4rem', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '3rem', background: 'rgba(0, 243, 255, 0.03)', border: '1px solid rgba(0, 243, 255, 0.1)' }}>
         {[
           { icon: "⚡", text: "Premium Ingredients" },
-          { icon: "🚀", text: "Free Shipping Over $50" },
+          { icon: "🚀", text: "Free Shipping Over ₹999" },
           { icon: "🔒", text: "Secure Checkout" },
           { icon: "💪", text: "Formulated for Aesthetics" }
         ].map((item, index) => (
@@ -32,24 +54,42 @@ export default function Shop() {
 
       {/* Category Filters */}
       <section style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '4rem' }}>
-        {["All Products", "Best Sellers", "High Protein", "Recovery"].map((category, index) => (
-          <button 
-            key={index} 
-            className="btn-secondary" 
-            style={{ 
-              padding: '0.6rem 2rem', 
-              fontSize: '0.95rem', 
+        <Link
+          href="/shop"
+          className="btn-secondary"
+          style={{
+            padding: '0.6rem 2rem',
+            fontSize: '0.95rem',
+            borderRadius: '30px',
+            borderColor: !activeCategorySlug ? 'var(--accent-cyan)' : 'var(--glass-border)',
+            color: !activeCategorySlug ? 'var(--accent-cyan)' : 'var(--text-primary)',
+            background: !activeCategorySlug ? 'rgba(0, 243, 255, 0.1)' : 'transparent',
+            textTransform: 'uppercase',
+            letterSpacing: '1px',
+            fontWeight: 600
+          }}
+        >
+          All Products
+        </Link>
+        {categories.map((category) => (
+          <Link
+            key={category.id}
+            href={`/shop?category=${category.slug}`}
+            className="btn-secondary"
+            style={{
+              padding: '0.6rem 2rem',
+              fontSize: '0.95rem',
               borderRadius: '30px',
-              borderColor: index === 0 ? 'var(--accent-cyan)' : 'var(--glass-border)',
-              color: index === 0 ? 'var(--accent-cyan)' : 'var(--text-primary)',
-              background: index === 0 ? 'rgba(0, 243, 255, 0.1)' : 'transparent',
+              borderColor: activeCategorySlug === category.slug ? 'var(--accent-cyan)' : 'var(--glass-border)',
+              color: activeCategorySlug === category.slug ? 'var(--accent-cyan)' : 'var(--text-primary)',
+              background: activeCategorySlug === category.slug ? 'rgba(0, 243, 255, 0.1)' : 'transparent',
               textTransform: 'uppercase',
               letterSpacing: '1px',
               fontWeight: 600
             }}
           >
-            {category}
-          </button>
+            {category.name}
+          </Link>
         ))}
       </section>
 
@@ -59,22 +99,24 @@ export default function Shop() {
         <div style={{ position: 'absolute', top: '20%', right: '-10%', width: '400px', height: '400px', background: 'var(--accent-purple-glow)', filter: 'blur(150px)', zIndex: -1, opacity: 0.4 }}></div>
         <div style={{ position: 'absolute', bottom: '10%', left: '-10%', width: '400px', height: '400px', background: 'var(--accent-cyan-glow)', filter: 'blur(150px)', zIndex: -1, opacity: 0.4 }}></div>
 
-        <ProductCard 
-          id="collagen-glow-bar"
-          name="Collagen Glow Bar"
-          flavor="Glow & Wellness"
-          protein="10g"
-          benefits="Protein + Collagen Builders + Glutamine. Radiant skin, recovery, and inner wellness."
-          imageSrc="/assets/product1.png"
-        />
-        <ProductCard 
-          id="dna-anabolic-bar"
-          name="DNA Anabolic Bar"
-          flavor="Strength & Recovery"
-          protein="10g"
-          benefits="Protein + Creatine + Ashwagandha. Built for daily performance and recovery."
-          imageSrc="/assets/product2.png"
-        />
+        {products.length === 0 ? (
+          <p style={{ textAlign: 'center', gridColumn: '1 / -1' }}>No products found in this category yet.</p>
+        ) : (
+          products.map((product) => (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              slug={product.slug}
+              name={product.name}
+              flavor={product.flavor}
+              proteinGrams={product.proteinGrams}
+              description={product.description}
+              priceInPaise={product.priceInPaise}
+              images={product.images}
+              stock={product.stock}
+            />
+          ))
+        )}
       </section>
     </main>
   );
