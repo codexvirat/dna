@@ -28,6 +28,13 @@ export default function Footer() {
         </div>
         <div style={{ textAlign: 'center', paddingTop: '2rem', borderTop: '1px solid var(--glass-border)', fontSize: '0.9rem' }}>
           <p>&copy; {new Date().getFullYear()} DNA Bars. All rights reserved.</p>
+          <p style={{ marginTop: '0.75rem', fontSize: '0.8rem', opacity: 0.8 }}>
+            DNA Bars is a brand of <strong>Shubhkrish Ventures Private Limited</strong>
+            <br />
+            CIN: U10799HR2026PTC148457
+            <br />
+            3rd Floor, 346A, Block B, Sushant Lok Phase 1, Sadar Bazar, Gurgaon, Haryana - 122001
+          </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '0.5rem' }}>
             <Link href="/privacy-policy">Privacy Policy</Link>
             <Link href="/terms">Terms of Service</Link>
